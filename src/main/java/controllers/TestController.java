@@ -24,15 +24,50 @@ public class TestController {
 
 
     @RequestMapping(path = "/api/{id}/{title}/{price}", method = RequestMethod.GET)
-    public String getBook(@PathVariable String id, @PathVariable String title,  @PathVariable String price) {
+    public String addBook(@PathVariable String id, @PathVariable String title,  @PathVariable String price) {
+
+        Book bookobj = new Book(id,title,price);
 
         System.out.println("id issssss  : "+id+"--------"+title+"   "+price);
-       /* DBMysql o = new DBMysql();
-        o.add(id,title,price);
+
+        DBMysql o = new DBMysql();
+        o.add(bookobj.getId(),bookobj.getTitle(),bookobj.getPrice());
 
         DBMongo obj = new DBMongo();
-        obj.add(id,title,price);*/
-        return "ID: " + id+" "+ title+" "+price;
+        obj.add(id,title,price);
+        return "Book Added  : " + id+" "+ title+" "+price;
     }
 
+
+    @RequestMapping(path = "/delete/{id}", method = RequestMethod.GET)
+    public String deleteBook(@PathVariable String id) {
+
+        DBMysql o = new DBMysql();
+        o.delete(id);
+
+        DBMongo mongo = new DBMongo();
+        mongo.delete(id);
+
+        return "Deleted    : " + id;
+    }
+
+    @RequestMapping(path = "/update/{id}/{title}/{price}", method = RequestMethod.GET)
+    public String updateBook(@PathVariable String id, @PathVariable String title,  @PathVariable String price) {
+
+        Book bookobj = new Book(id,title,price);
+
+        DBMysql o = new DBMysql();
+        o.update(bookobj.getId(),bookobj.getTitle(),bookobj.getPrice());
+
+        DBMongo mongo = new DBMongo();
+        mongo.update(bookobj.getId(),bookobj.getTitle(),bookobj.getPrice());
+
+        return "Updated  : " + id;
+    }
+
+
+
+
 }
+
+//mvn spring-boot:run
