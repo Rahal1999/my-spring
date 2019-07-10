@@ -7,6 +7,12 @@ import com.mongodb.MongoClient;
 
 public class DBMongo {
     DBCollection table;
+
+    static final String id = "ID";
+    static final String title = "Title";
+    static final String price = "Price";
+
+
     public DBMongo(){
         MongoClient mongo = new MongoClient( "localhost" , 27017 );
         DB db = mongo.getDB("books");
@@ -16,23 +22,23 @@ public class DBMongo {
 
     public void add(String id,String title,String price){
         BasicDBObject document = new BasicDBObject();
-        document.put("ID", id);
-        document.put("Title", title);
-        document.put("Price",price);
+        document.put(id, id);
+        document.put(title, title);
+        document.put(price,price);
         table.insert(document);
     }
 
     public void delete(String id){
         BasicDBObject document = new BasicDBObject();
-        document.put("ID", id);
+        document.put(id, id);
         table.remove(document);
     }
 
     public void update(String id,String title,String price){
 
-        BasicDBObject old = new BasicDBObject("ID", id);
-        BasicDBObject newData = new BasicDBObject().append("Title", title)
-                .append("Price", price);
+        BasicDBObject old = new BasicDBObject(id, id);
+        BasicDBObject newData = new BasicDBObject().append(title, title)
+                .append(price, price);
         BasicDBObject updateDoc = new BasicDBObject("$set", newData);
         table.update(old, updateDoc);
 
