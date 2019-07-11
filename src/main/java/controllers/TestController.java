@@ -23,7 +23,7 @@ public class TestController {
     }
 
 
-    @RequestMapping(path = "/api/{id}/{title}/{price}", method = RequestMethod.GET)
+    @RequestMapping(path = "/add/{id}/{title}/{price}", method = RequestMethod.GET)
     public String addBook(@PathVariable String id, @PathVariable String title,  @PathVariable String price) {
 
         Book bookobj = new Book(id,title,price);

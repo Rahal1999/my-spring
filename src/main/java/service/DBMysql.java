@@ -1,8 +1,48 @@
 package service;
 
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+
+import java.io.FileInputStream;
 import java.sql.*;
+import java.util.Properties;
 
 public class DBMysql {
+
+
+//    @Configuration
+//    @PropertySource("file:connection.properties")
+    public Statement  connect(){
+        Connection connection = null;
+        Statement stmt = null;
+        try
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager
+                    .getConnection("jdbc:mysql://localhost:3306/books", "user", "password");
+
+            stmt = connection.createStatement();
+
+//            FileInputStream fis=new FileInputStream("connection.properties");
+//
+//            Properties p=new Properties ();
+//            p.load (fis);
+//            String dname= (String) p.get ("Dname");
+//            String url= (String) p.get ("URL");
+//            String username= (String) p.get ("Uname");
+//            String password= (String) p.get ("password");
+//            Class.forName(dname);
+//            Connection con = DriverManager.getConnection(
+//                    url, username, password);
+//             stmt = con.createStatement();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return stmt;
+    }
+
+
     public void add(String ID,String title,String price){
 
         Statement stmt = connect();
@@ -94,22 +134,6 @@ public class DBMysql {
 
 
 
-    public Statement  connect(){
-        Connection connection = null;
-        Statement stmt = null;
-        try
-        {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager
-                    .getConnection("jdbc:mysql://localhost:3306/books", "user", "password");
-
-            stmt = connection.createStatement();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return stmt;
-    }
 
 
 }
